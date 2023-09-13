@@ -13,8 +13,9 @@ link website = https://future-fashion.adaptable.app/
 
 2. berikut bagan request client ke web aplikasi Django
 <br>
-[Bagan](Client.png)
+![Bagan](Client.png)
 <br>
+
 ketika user melakukan browser (mengirim request), internet akan mengirim http/https request ke web server. aplikasi django yang ada di web server pun mengelola request dengan mengarahkan ke view yang dikehendaki. view yang menjadi jembatan antara model dan template akan mendapat dan mengirimkan data ke model serta mendapat tampilan dari template. kemudian view akan mengirimkan http response berupa html yang nantinya web server akan mengembalikan response tersebut ke user untuk ditampilkan di browser. 
 
 3. virtual environment memungkinkan pengembangan dari suatu proyek yang kita kerjakan inklusif. maksudnya apa yang kita kerjakan di suatu proyek django yang menggunakan virtual environment tidak akan mempengaruhi proyek lainnya seperti dependency yang diinstall dan lain sebagainya. 
