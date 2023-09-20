@@ -1,11 +1,36 @@
-{%load static%}
-<div style="text-align: center; background-color: lightblue">
-<h1>Future Fashion</h1>
-<img src= "{% static "fashion.jpg" %}" alt="Fashion">
+{% load static %}
 
-<h5>Name: </h5> 
-<p>{{ name }}<p>
-<h5>Class: </h5>
-<p>{{ class }}<p>
+{% block content %}
+    <div style="text-align: center; background-color: lightblue; padding:20px;">
+        <h1>Future Fashion</h1>
+        <img src= "{% static 'images/fashion.jpg' %}" alt="Fashion" style="width: 200px;">
+        <br/>
+        <p style= "font-weight: bold; font-size: 21px;">Items yang tersedia<p>
+        
+        <div style= "display: grid; grid-gap: 5px; grid-template-columns: repeat(5,1fr); align-items: center;">
+            {% for item in items %}
+                <div style="width: 200px; border: 2px solid #000; padding: 4px;">
+                    <h5>{{ item.name }}</h5>
+                    <p>Price: {{ item.price }}</p>
+                    <p>Amount: {{ item.amount }}</p>
+                    <p>{{ item.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
 
-</div>
+        <br/>
+
+        <a href="{% url 'main:create_item' %}">
+            <button>
+                Add New Item
+            </button>
+        </a>
+
+        <h5>Name: </h5> 
+        <p>{{ name }}<p>
+        <h5>Class: </h5>
+        <p>{{ class }}<p>
+
+    </div>
+
+{% endblock content %}
