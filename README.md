@@ -41,10 +41,10 @@ ViewModel tidak hanya berperan sebagai jembatan antara Model dan View tetapi jug
 
 1. Form POST digunakan untuk mengirimkan data ke server sedangkan form GET digunakan untuk mengambil data dari server
 
-2. Perbedaan XML, JSON, dan HTML 
+2. Perbedaan XML, JSON, dan HTML. 
+
 XML yang merupakan singkatan dari Extensible Markup Language memiliki struktur seperti tree yang mana dokumennya dimulai dari root, branch, lalu ke leaves. contoh dari XML: 
 
-<!---
 <movies>
     <movie1>
         <title>Jungle Book</title>
@@ -62,7 +62,6 @@ XML yang merupakan singkatan dari Extensible Markup Language memiliki struktur s
         <age>18+</age>
     </movie3>
 </movies>
--->
 
 JSON yang merupakan singkatan dari JavaScript Object Notation terdiri dari key dan value, memiliki struktur seperti dictionary di python. contoh dari JSON: 
 
