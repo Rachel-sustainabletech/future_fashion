@@ -109,3 +109,55 @@ HTML yang merupakan singkatan dari HyperText Markup Language biasa digunakan unt
     - setelah itu saya membuat routing2 nya di urls.py fodler main dengan mengimport fungsi create_item, show_xml, show_json, show_xml_by_id, dan show_json_by_id. Setelah itu saya membuat path2nya dari ke 5 fungsi di atas 
 
 4. Bukti hasil mengakses ke 5 URL di Postman 
+
+## TUGAS 4
+
+1. UserCreationForm adalah formulir bawaan Django untuk registrasi pengguna 
+
+Kelebihannya terdapat fitur untuk validasi autentikasi
+
+Kekurangannya fitur bawaan dari UserCreationForm sederhana, tidak ada fitur semacam CAPTCHA ataupun saran keamanan kata sandi yang kuat 
+
+2. Autentikasi => proses verifikasi pengguna atau bisa disebut login 
+
+Otorisasi => proses verifikasi untuk mengakses sebuah aset 
+
+Proses autentikasi penting untuk menjaga privasi dan keinklusifan data pengguna di suatu platform
+
+Proses otorisasi penting untuk menjaga keamanan data atau aset suatu platform
+
+3. Cookies adalah kumpulan informasi yang dikirim web server ke browser agar nantinya bisa di tampilkan kembali di tampilan halaman ketika direquest. Kumpulan informasi yang dimaksud bisa berupa informasi autentikasi pengguna (token autentikasi), data pengguna, preferensi pengguna, sesi id, dan sebagainya
+
+Django biasanya memanfaatkan cookies untuk mengelola informasi id sesi pengguna. Dengan id sesi pengguna, maka django dapat menampilkan tampilan dan layanan yang sudah dikustomisasi sesuai dengan preferensi pengguna 
+
+4. Penggunaan cookie secara default cenderung aman karena informasi yang ada di session cookie terbatas dan memiliki masa berlaku. Selain itu, session cookie hanya bisa diakses oleh browser. Tracking informasi yang dilakukan oleh session cookie juga bersifat temporary. Selain itu, session cookie akan dihapus begitu browser ditutup
+
+Meskipun demikian tetap ada risiko potensial serangan CSRF(Cross-Site Request Forgery) dan pencurian informasi cookie selama sesi yang perlu diwaspadai
+
+5. Cara saya mengimplementasikan checklist: 
+    * implementasi fungsi registrasi, login, dan logout 
+        - pertama saya membuat fungsi untuk registrasi memanfaatkan UserCreationForm dengan metode form POST. saya juga menambahkan route untuk registrasi di urls.py. saya juga menambahkan html untuk registrasi di main/templates
+        - selanjutnya saya membuat fungsi untuk login dengan meminta username dan password yang kemudian akan di autentikasi. jika pengguna ada maka akan di direct ke halaman main, jika tidak ada maka akan muncul info bahwa user tidak ditemukan. saya juga menambahkan html untuk login di main/templates
+        - kemudian saya membuat membuat fungsi untuk logout serta menambahkan hyperlink text untuk logout di main.html
+        - setelah itu, saya merestriksi tampilan halaman main dengan menambahkan decorator login_required di fungsi show_main yang ada di views.py 
+
+    * buat dua akun pengguna dengan 2 dummy data menggunakan model yang telah dibuat untuk setiap akun lokal 
+        - untuk mengimplementasikan perintah di atas, saya memanfaatkan django shell 
+
+    * menghubungkan model item dengan user 
+        - untuk menghubungkan user dengan item saya menambahkan user di model item. jadi setiap item memiliki informasi user tersendiri
+        - setelah itu saya menambahkan kode di fungsi create_item untuk mendefiniskan user dari suatu item
+
+    * menampilkan detail informasi pengguna seperti usernama dan cookies untuk last login di halaman utama 
+        - untuk detail informasi pengguna saya menambahkan request.user.username sebagai name di context yang ada di fungsi show_main
+        - untuk menerapkan last login, saya mengatur cookies di fungsi login dimana cookie tersebut berisi informasi tanggal dan jam ketika user login dari modul datetime
+        - lalu saya menambahkan kode untuk menghapus fungsi cookie tersebut di fungsi logout yang ada di views.py 
+        - kemudian saya meletakan last login nya di html main 
+    
+    * setelah itu saya melakukan migrasi model dengan menjalankan makemigrations dan migrate 
+
+6. Bonus 
+    * tombol dan fungsi untuk menambahkan amount
+        
+    
+    * tombol dan fungsi untuk hapus objek dari inventori 
