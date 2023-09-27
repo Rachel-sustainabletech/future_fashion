@@ -114,7 +114,7 @@ HTML yang merupakan singkatan dari HyperText Markup Language biasa digunakan unt
 
 1. UserCreationForm adalah formulir bawaan Django untuk registrasi pengguna 
 
-Kelebihannya terdapat fitur untuk validasi autentikasi
+Kelebihannya terdapat fitur untuk validasi autentikasi serta mudah diintegrasikan karena sederhana 
 
 Kekurangannya fitur bawaan dari UserCreationForm sederhana, tidak ada fitur semacam CAPTCHA ataupun saran keamanan kata sandi yang kuat 
 
@@ -142,14 +142,14 @@ Meskipun demikian tetap ada risiko potensial serangan CSRF(Cross-Site Request Fo
         - setelah itu, saya merestriksi tampilan halaman main dengan menambahkan decorator login_required di fungsi show_main yang ada di views.py 
 
     * buat dua akun pengguna dengan 2 dummy data menggunakan model yang telah dibuat untuk setiap akun lokal 
-        - untuk mengimplementasikan perintah di atas, saya memanfaatkan django shell 
+        - untuk membuat 2 akun pengguna saya melakukannya secara manual dengan memanfaatkan tampilan form dari yang sudah dibuat sebelumnya. dummy file juga sama saya membuat item secara manual dengan ui yang ada 
 
     * menghubungkan model item dengan user 
         - untuk menghubungkan user dengan item saya menambahkan user di model item. jadi setiap item memiliki informasi user tersendiri
         - setelah itu saya menambahkan kode di fungsi create_item untuk mendefiniskan user dari suatu item
 
     * menampilkan detail informasi pengguna seperti usernama dan cookies untuk last login di halaman utama 
-        - untuk detail informasi pengguna saya menambahkan request.user.username sebagai name di context yang ada di fungsi show_main
+        - untuk detail informasi pengguna saya menambahkan user.username di elemen p html sebelum tombol add new item dan logout
         - untuk menerapkan last login, saya mengatur cookies di fungsi login dimana cookie tersebut berisi informasi tanggal dan jam ketika user login dari modul datetime
         - lalu saya menambahkan kode untuk menghapus fungsi cookie tersebut di fungsi logout yang ada di views.py 
         - kemudian saya meletakan last login nya di html main 
@@ -158,6 +158,8 @@ Meskipun demikian tetap ada risiko potensial serangan CSRF(Cross-Site Request Fo
 
 6. Bonus 
     * tombol dan fungsi untuk menambahkan amount
-        
+        - saya menambahkan tombol 
+        - 
     
     * tombol dan fungsi untuk hapus objek dari inventori 
+        - 

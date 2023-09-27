@@ -19,7 +19,8 @@ def show_main(request):
         'name': 'Rachel Mathilda', 
         'class': 'PBP D', 
         'items': items, 
-        'last_login': request.COOKIES['last_login'],
+        # 'last_login': request.COOKIES.get('last_login', 'N/A')
+        'last_login': request.COOKIES['last_login']
     }
     
     return render(request, "main.html", context)
@@ -28,7 +29,9 @@ def create_item(request):
     form = ItemForm(request.POST or None)
     
     if form.is_valid() and request.method == "POST":
-        form.save()
+        item = form.save(commit=False)
+        item.user = request.user 
+        item.save()
         return HttpResponseRedirect(reverse('main:show_main'))
     
     context = {'form': form}
@@ -61,8 +64,11 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
+            # user = form.save()
+            # create_dummy_item(user)
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:login')
+        
     context = {'form':form}
     return render(request, 'register.html', context)
 
@@ -86,3 +92,16 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+'''
+def create_dummy_item(user): 
+    Item.objects.create(name= 'bando', amount= 10, description= 'bando estetik dengan beragam pilihan motif dan warna', price= 2000, user= user)
+    Item.objects.create(name= 'rok jeans', amount= 20, description= 'tersedia dalam ukuran s, m, dan l. ada 3 pilihan warna yaitu biru laut, hitam, dan biru muda', price= 20000, user= user)
+    Item.objects.create(name= 'sepatu boot', amount= 30, description= 'sepatu model vintage buatan designer handal', price= 30000, user= user)
+'''
+'''
+def delete_item(request, item_id):
+    item = Item.objects.get(pk= item_id)
+    item.delete()
+    return redirect('show_main')
+'''
