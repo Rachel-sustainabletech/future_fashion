@@ -135,3 +135,16 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# Ignore built files
+/dist/
+/node_modules/
+/build/
+.cache/
+
+# Ignore Tailwind CSS configuration
+tailwind.config.js
+
+# Ignore yarn.lock atau package-lock.json jika Anda menggunakan npm
+yarn.lock
+package-lock.json

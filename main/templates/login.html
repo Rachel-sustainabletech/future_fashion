@@ -6,28 +6,25 @@
 
 {% block content %}
 
-<div class = "login">
-
-    <h1>Login</h1>
+<div class= "flex flex-col justify-center items-center h-screen bg-violet-300">
+    
+    <h1 class= "my-8">Login</h1>
 
     <form method="POST" action="">
         {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+        <div class= "my-2">
+            <p>Username: </p>
+            <input type="text" name="username" placeholder="Username" class="form-control">
+        </div>
+                
+        <div class= "my-2">
+            <p>Password: </p>
+            <input type="password" name="password" placeholder="Password" class="form-control">
+        </div>
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
-        </table>
+        <div class= "hover:bg-violet-800 justify-center">
+            <input class="btn login_btn items-center" type="submit" value="Login">
+        </div>
     </form>
 
     {% if messages %}
@@ -37,9 +34,7 @@
             {% endfor %}
         </ul>
     {% endif %}     
-        
-    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
-
+    <div class="flex">Don't have an account yet?<a href="{% url 'main:register' %}"> Register Now</a></div>
 </div>
 
 {% endblock content %}

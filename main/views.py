@@ -64,8 +64,6 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            # user = form.save()
-            # create_dummy_item(user)
             messages.success(request, 'Your account has been successfully created!')
             return redirect('main:login')
         
@@ -93,15 +91,43 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
-'''
-def create_dummy_item(user): 
-    Item.objects.create(name= 'bando', amount= 10, description= 'bando estetik dengan beragam pilihan motif dan warna', price= 2000, user= user)
-    Item.objects.create(name= 'rok jeans', amount= 20, description= 'tersedia dalam ukuran s, m, dan l. ada 3 pilihan warna yaitu biru laut, hitam, dan biru muda', price= 20000, user= user)
-    Item.objects.create(name= 'sepatu boot', amount= 30, description= 'sepatu model vintage buatan designer handal', price= 30000, user= user)
-'''
-'''
-def delete_item(request, item_id):
-    item = Item.objects.get(pk= item_id)
+def delete_item(request, id):
+    # Get data berdasarkan ID
+    item = Item.objects.get(pk = id)
+    # Hapus data
     item.delete()
-    return redirect('show_main')
-'''
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def edit_item(request, id):
+    # Get product berdasarkan ID
+    product = Item.objects.get(pk = id)
+
+    # Set product sebagai instance dari form
+    form = ItemForm(request.POST or None, instance=product)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    context = {'form': form}
+    return render(request, "edit_item.html", context)
+
+def add_amount(request, id):
+    # Get data berdasarkan ID
+    item = Item.objects.get(pk = id)
+    # Tambahin amount
+    item.amount += 1
+    item.save()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
+
+def reduce_amount(request, id):
+    # Get data berdasarkan ID
+    item = Item.objects.get(pk = id)
+    # Kurangin amount
+    item.amount -= 1
+    item.save()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))
