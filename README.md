@@ -8,7 +8,7 @@ Synchronous programming => Operasi dilakukan secara berurutan dan satu per satu.
 
 2. Event driven programming => prinsip pemrograman yang mengeksekusi program berdasarkan peristiwa tertentu contohnya seperti penekanan tombol
 
-3. Penerapan asynchronous programming pada AJAX => 
+3. Penerapan asynchronous programming pada AJAX => dapat dilakukan dengan callback functions, Promises, atau async/await
 
 4. Penerapan AJAX dengan Fetch API => memanfaatkan javascript lebih tepatnya menjemput url dengan fungsi fetch kemudian memberikan response
 
