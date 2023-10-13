@@ -2,17 +2,17 @@
 
 ## TUGAS 6
 
-1. Asynchronous programming => Operasi dilakukan secara berurutan
+1. Asynchronous programming => Beberapa operasi dilakukan secara bersamaan
 
-Synchronous programming => Beberapa operasi dilakukan secara bersamaan
+Synchronous programming => Operasi dilakukan secara berurutan dan satu per satu. perlu menunggu operasi sebelumnya selesai terlebih dahulu
 
-2. Event driven programming => 
+2. Event driven programming => prinsip pemrograman yang mengeksekusi program berdasarkan peristiwa tertentu contohnya seperti penekanan tombol
 
 3. Penerapan asynchronous programming pada AJAX => 
 
-4. Penerapan AJAX dengan Fetch API => 
+4. Penerapan AJAX dengan Fetch API => memanfaatkan javascript lebih tepatnya menjemput url dengan fungsi fetch kemudian memberikan response
 
-Penerapan AJAX dengan library jQuery => AJAX memanfaatkan asynchronous programming untuk 
+Penerapan AJAX dengan library jQuery => memanfaatkan fungsi fungsi bawaan yang ada di AJAX
 
 5. Cara mengimplementasikan checklist di atas: 
     - pertama-tama saya membuat fungsi untuk mengembalikan data JSON
