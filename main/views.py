@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect 
 from main.forms import ItemForm
 from django.urls import reverse 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from main.models import Item
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required #, csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 import datetime 
 
 # Create your views here.
@@ -19,8 +20,8 @@ def show_main(request):
         'name': 'Rachel Mathilda', 
         'class': 'PBP D', 
         'items': items, 
-        # 'last_login': request.COOKIES.get('last_login', 'N/A')
-        'last_login': request.COOKIES['last_login']
+        'last_login': request.COOKIES.get('last_login', 'N/A')
+        #'last_login': request.COOKIES['last_login']
     }
     
     return render(request, "main.html", context)
@@ -131,3 +132,37 @@ def reduce_amount(request, id):
     item.save()
     # Kembali ke halaman awal
     return HttpResponseRedirect(reverse('main:show_main'))
+
+@csrf_exempt
+def create_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_product = Item(name=name, price=price, description=description, user=user)
+        new_product.save()
+
+        return HttpResponse(b"CREATED", status=201)
+
+    return HttpResponseNotFound()
+
+def get_item_json(request):
+    product_item = Item.objects.all()
+    return HttpResponse(serializers.serialize('json', product_item))
+
+# @csrf_exempt
+# def add_product_ajax(request):
+#     if request.method == 'POST':
+#         name = request.POST.get("name")
+#         price = request.POST.get("price")
+#         description = request.POST.get("description")
+#         user = request.user
+
+#         new_product = Item(name=name, price=price, description=description, user=user)
+#         new_product.save()
+
+#         return HttpResponse(b"CREATED", status=201)
+
+#     return HttpResponseNotFound()
