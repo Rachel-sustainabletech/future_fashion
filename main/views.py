@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect 
 from main.forms import ItemForm
 from django.urls import reverse 
-from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound, JsonResponse
 from main.models import Item
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm
@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required #, csrf_exempt
 from django.views.decorators.csrf import csrf_exempt
 import datetime 
+import json
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -152,17 +153,38 @@ def get_item_json(request):
     product_item = Item.objects.all()
     return HttpResponse(serializers.serialize('json', product_item))
 
-# @csrf_exempt
-# def add_product_ajax(request):
-#     if request.method == 'POST':
-#         name = request.POST.get("name")
-#         price = request.POST.get("price")
-#         description = request.POST.get("description")
-#         user = request.user
+@csrf_exempt
+def add_product_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        price = request.POST.get("price")
+        description = request.POST.get("description")
+        user = request.user
 
-#         new_product = Item(name=name, price=price, description=description, user=user)
-#         new_product.save()
+        new_product = Item(name=name, price=price, description=description, user=user)
+        new_product.save()
 
-#         return HttpResponse(b"CREATED", status=201)
+        return HttpResponse(b"CREATED", status=201)
 
-#     return HttpResponseNotFound()
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        
+        data = json.loads(request.body)
+
+        new_product = Item.objects.create(
+            user = request.user,
+            name = data["name"],
+            price = int(data["price"]),
+            description = data["description"]
+        )
+
+        new_product.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
+    
+    

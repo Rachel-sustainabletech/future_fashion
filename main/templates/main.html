@@ -80,6 +80,7 @@
         <p>{{ class }}<p>
 
     </div>
+
     <script>
         var data = ["#d8b4fe", "#e879f9", "#ddd6fe", "#c7d2fe", "#fecdd3", "#fbcfe8", "#bfdbfe"]; 
         function warnaRandom(){
@@ -96,32 +97,38 @@
             document.getElementById("container").innerHTML = ""
             const products = await getProducts()
             let htmlString = ``
+
             products.forEach((item) => {
+                const addAmountUrl = "{% url 'main:add_amount' 0 %}".replace("0", item.pk);
+                const reduceAmountUrl = "{% url 'main:reduce_amount' 0 %}".replace("0", item.pk);
+                const editItemUrl = "{% url 'main:edit_item' 0 %}".replace("0", item.pk);
+                const deleteItemUrl = "{% url 'main:delete_item' 0 %}".replace("0", item.pk);
+
                 htmlString += `
                 <div style="width: 200px; border: 1px solid #000; padding: 4px; background-color: #bae6fd;">
-                    <p>${ item.name }</p>
-                    <p>Price: ${ item.price } </p>
+                    <p>${item.name}</p>
+                    <p>Price: ${item.price} </p>
                     <div style= "display: inline">
-                        <a href="{% url 'main:add_amount' ${item.pk} %}">
+                        <a href="${addAmountUrl}">
                             <button style = "border-radius: 10px">
                                 +
                             </button>
                         </a>
-                        <p>Amount: ${ item.amount }</p>
-                        <a href="{% url 'main:reduce_amount' ${item.pk} %}">
+                        <p>Amount: ${item.amount}</p>
+                        <a href="${reduceAmountUrl}">
                             <button style= "border-radius: 10px">
                                 -
                             </button>
                         </a>
                     </div>
-                    <p>${ item.description }</p>
+                    <p>${item.description}</p>
                     <div style= "display: inline">
-                        <a href="{% url 'main:edit_item' ${item.pk} %}">
+                        <a href="${editItemUrl}">
                             <button>
                                 Edit
                             </button>
                         </a>
-                        <a href="{% url 'main:delete_item' ${item.pk} %}">
+                        <a href="${deleteItemUrl}">
                             <button>
                                 Delete
                             </button>
